@@ -26,13 +26,13 @@ if (! function_exists('Meincms\setupPsr4')) {
                 if($classname[0] !== '/') 
                 {
 
-                    if($scope == 'app')
+                    if($scope == 'Site')
                     {
                         $classfile = SITEPATH.implode('/', $class_segment);
                         require_once($classfile);
                     }
 
-                    elseif($scope == 'shared')
+                    elseif($scope == 'Shared')
                     {
                         $classfile = 'shared/'.implode('/', $class_segment);
                         require_once($classfile);
