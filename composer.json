@@ -16,7 +16,7 @@
 			"Meincms\\": "src/"
 		},
 		"files": [
-            "src/Config/psr4.php"
+            "src/functions.php"
         ]
 	}
 }
