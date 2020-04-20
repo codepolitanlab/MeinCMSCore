@@ -2,38 +2,66 @@
 
 namespace Meincms;
 
-if (! function_exists('Meincms\setupPsr4')) {
+if (! function_exists('Meincms\getHooks')) {
+
     /**
-     * Helper for defining psr4
+     * Register all hook events
      *
+     * @package Meincms\getHooks
+     * @author Toni Haryanto
      */
-    function setupPsr4($paths = [])
+    function getHooks()
     {
-        // Only Autoload PHP Files
-        spl_autoload_extensions('.php'); 
+        $hook['pre_system'][] = function(){
+            (new Hooks\PreSystemHook)->run();
 
-        // available namespace under \app and \meincms
-        spl_autoload_register(function($classname) use ($paths)
-        {
-            if( strpos($classname,'\\') !== false )
-            {
-                // Namespaced Classes
-                $classfile = str_replace('\\','/',$classname).'.php';
-                $class_segment = explode('/', $classfile);
+            if(file_exists(APPPATH.'hooks/PreSystemHook.php'))
+                (new \Core\application\hooks\PreSystemHook)->run();
+        };
 
-                $scope = array_shift($class_segment);
+        $hook['pre_controller'][] = function(){
+            (new Hooks\PreControllerHook)->run();
 
-                if($classname[0] !== '/' && !empty($paths) ) 
-                {
-                    foreach ($paths as $key => $path) {
-                        if($scope == $key)
-                        {
-                            $classfile = $path.implode('/', $class_segment);
-                            require_once($classfile);
-                        }
-                    }
-                }
-            }
-        });
-    };
+            if(file_exists(APPPATH.'hooks/PreControllerHook.php'))
+                (new \Core\application\hooks\PreControllerHook)->run();
+        };
+
+        $hook['post_controller_constructor'][] = function(){
+            (new Hooks\PostControllerConstructorHook)->run();
+            
+            if(file_exists(APPPATH.'hooks/PostControllerConstructorHook.php'))
+                (new \Core\application\hooks\PostControllerConstructorHook)->run();
+        };
+
+        $hook['post_controller'][] = function(){
+            (new Hooks\PostControllerHook)->run();
+            
+            if(file_exists(APPPATH.'hooks/PostControllerHook.php'))
+                (new \Core\application\hooks\PostControllerHook)->run();
+        };
+
+        $hook['display_override'][] = function(){
+            (new Hooks\DisplayOverrideHook)->run();
+
+            if(file_exists(APPPATH.'hooks/DisplayOverrideHook.php'))
+                (new \Core\application\hooks\DisplayOverrideHook)->run();
+        };
+
+        $hook['cache_override'][] = function(){
+            (new Hooks\CacheOverrideHook)->run();
+
+            if(file_exists(APPPATH.'hooks/CacheOverrideHook.php'))
+                (new \Core\application\hooks\CacheOverrideHook)->run();
+        };
+
+        $hook['post_system'][] = function(){
+            (new Hooks\PostSystemHook)->run();
+
+            if(file_exists(APPPATH.'hooks/PostSystemHook.php'))
+                (new \Core\application\hooks\PostSystemHook)->run();
+        };
+
+        return $hook;
+    }
+
 }

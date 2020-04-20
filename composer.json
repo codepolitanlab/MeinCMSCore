@@ -6,7 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "codeigniter/framework": "3.1.*"
+        "codeigniter/framework": "3.1.*",
+        "filp/whoops": "^2.3"
     },
     "require-dev": {
         "doctrine/coding-standard": "^7.0"
