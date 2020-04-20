@@ -7,13 +7,13 @@ if (! function_exists('Meincms\setupPsr4')) {
      * Helper for defining psr4
      *
      */
-    function setupPsr4()
+    function setupPsr4($paths = [])
     {
         // Only Autoload PHP Files
         spl_autoload_extensions('.php'); 
 
         // available namespace under \app and \meincms
-        spl_autoload_register(function($classname)
+        spl_autoload_register(function($classname) use ($paths)
         {
             if( strpos($classname,'\\') !== false )
             {
@@ -23,25 +23,14 @@ if (! function_exists('Meincms\setupPsr4')) {
 
                 $scope = array_shift($class_segment);
 
-                if($classname[0] !== '/') 
+                if($classname[0] !== '/' && !empty($paths) ) 
                 {
-
-                    if($scope == 'Site')
-                    {
-                        $classfile = SITEPATH.implode('/', $class_segment);
-                        require_once($classfile);
-                    }
-
-                    elseif($scope == 'Shared')
-                    {
-                        $classfile = 'shared/'.implode('/', $class_segment);
-                        require_once($classfile);
-                    }
-
-                    else if($scope == 'Core')
-                    {
-                        $classfile = COREPATH.implode('/', $class_segment);
-                        require_once $classfile;
+                    foreach ($paths as $key => $path) {
+                        if($scope == $key)
+                        {
+                            $classfile = $path.implode('/', $class_segment);
+                            require_once($classfile);
+                        }
                     }
                 }
             }
