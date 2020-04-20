@@ -17,7 +17,8 @@
             "Meincms\\": "src/"
         },
         "files": [
-            "src/functions.php"
+            "src/functions.php",
+            "src/helpers.php"
         ]
     }
 }
