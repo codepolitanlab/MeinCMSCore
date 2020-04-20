@@ -25,7 +25,7 @@ class PreSystemHook extends BaseHook {
 	 */
 	public function registerWhoops()
 	{
-		if(ENVIRONMENT != 'production'){
+		if(ENVIRONMENT != 'production' && !is_cli()){
 			$whoops = new \Whoops\Run;
 			$handler = new \Whoops\Handler\PrettyPageHandler;
 			
