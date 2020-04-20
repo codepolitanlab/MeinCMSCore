@@ -48,7 +48,7 @@ class PreSystemHook extends BaseHook {
 	 */
 	public function registerPsr4()
 	{
-		$paths = config_item('psr4') ?? ['Core' => APPPATH];
+		$paths = config_item('psr4') ?? ['App' => APPPATH];
 
 		// Only Autoload PHP Files
         spl_autoload_extensions('.php'); 

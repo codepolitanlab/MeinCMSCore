@@ -16,49 +16,49 @@ if (! function_exists('Meincms\getHooks')) {
             (new Hooks\PreSystemHook)->run();
 
             if(file_exists(APPPATH.'hooks/PreSystemHook.php'))
-                (new \Core\application\hooks\PreSystemHook)->run();
+                (new \App\hooks\PreSystemHook)->run();
         };
 
         $hook['pre_controller'][] = function(){
             (new Hooks\PreControllerHook)->run();
 
             if(file_exists(APPPATH.'hooks/PreControllerHook.php'))
-                (new \Core\application\hooks\PreControllerHook)->run();
+                (new \App\hooks\PreControllerHook)->run();
         };
 
         $hook['post_controller_constructor'][] = function(){
             (new Hooks\PostControllerConstructorHook)->run();
             
             if(file_exists(APPPATH.'hooks/PostControllerConstructorHook.php'))
-                (new \Core\application\hooks\PostControllerConstructorHook)->run();
+                (new \App\hooks\PostControllerConstructorHook)->run();
         };
 
         $hook['post_controller'][] = function(){
             (new Hooks\PostControllerHook)->run();
             
             if(file_exists(APPPATH.'hooks/PostControllerHook.php'))
-                (new \Core\application\hooks\PostControllerHook)->run();
+                (new \App\hooks\PostControllerHook)->run();
         };
 
         $hook['display_override'][] = function(){
             (new Hooks\DisplayOverrideHook)->run();
 
             if(file_exists(APPPATH.'hooks/DisplayOverrideHook.php'))
-                (new \Core\application\hooks\DisplayOverrideHook)->run();
+                (new \App\hooks\DisplayOverrideHook)->run();
         };
 
         $hook['cache_override'][] = function(){
             (new Hooks\CacheOverrideHook)->run();
 
             if(file_exists(APPPATH.'hooks/CacheOverrideHook.php'))
-                (new \Core\application\hooks\CacheOverrideHook)->run();
+                (new \App\hooks\CacheOverrideHook)->run();
         };
 
         $hook['post_system'][] = function(){
             (new Hooks\PostSystemHook)->run();
 
             if(file_exists(APPPATH.'hooks/PostSystemHook.php'))
-                (new \Core\application\hooks\PostSystemHook)->run();
+                (new \App\hooks\PostSystemHook)->run();
         };
 
         return $hook;
