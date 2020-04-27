@@ -30,9 +30,14 @@ class PreSystemHook extends BaseHook {
 			$handler = new \Whoops\Handler\PrettyPageHandler;
 			
 			$CFG =& load_class('Config', 'core');
-			foreach ($CFG->item('whoops_blacklist') as $globalVar => $values)
-				foreach ($values as $value)
-					$handler->blacklist($globalVar, $value);
+			
+			// Register blacklist if set
+			if($CFG->item('whoops_blacklist'))
+			{
+				foreach ($CFG->item('whoops_blacklist') as $globalVar => $values)
+					foreach ($values as $value)
+						$handler->blacklist($globalVar, $value);
+			}
 
 			$whoops->pushHandler($handler);
 			$whoops->register();
