@@ -33,34 +33,6 @@ if (! function_exists('Meincms\getHooks')) {
                 (new \App\hooks\PostControllerConstructorHook)->run();
         };
 
-        $hook['post_controller'][] = function(){
-            (new Hooks\PostControllerHook)->run();
-            
-            if(file_exists(APPPATH.'hooks/PostControllerHook.php'))
-                (new \App\hooks\PostControllerHook)->run();
-        };
-
-        $hook['display_override'][] = function(){
-            (new Hooks\DisplayOverrideHook)->run();
-
-            if(file_exists(APPPATH.'hooks/DisplayOverrideHook.php'))
-                (new \App\hooks\DisplayOverrideHook)->run();
-        };
-
-        $hook['cache_override'][] = function(){
-            (new Hooks\CacheOverrideHook)->run();
-
-            if(file_exists(APPPATH.'hooks/CacheOverrideHook.php'))
-                (new \App\hooks\CacheOverrideHook)->run();
-        };
-
-        $hook['post_system'][] = function(){
-            (new Hooks\PostSystemHook)->run();
-
-            if(file_exists(APPPATH.'hooks/PostSystemHook.php'))
-                (new \App\hooks\PostSystemHook)->run();
-        };
-
         return $hook;
     }
 
