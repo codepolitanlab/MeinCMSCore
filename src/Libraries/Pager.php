@@ -39,11 +39,8 @@ class Pager {
 			// Get file with extension .md, .html and twig
 			if(in_array($filepath['extension'], ['php','md','html','twig']))
 			{
-				// Get file content
-				$pagedata[$filepath['filename']] = file_get_contents($this->pageFolder.$pagedata['uri'].'/'.$file);
-
-				// Prepare page files
-				$pagedata['index_file'] = $pagedata['uri'].'/'.$file;
+				// Prepare page file
+				$pagedata['filepath'] = $this->pageFolder.$pagedata['uri'].'/'.$file;
 			}
 		}
 
@@ -83,14 +80,17 @@ class Pager {
 		return false;
 	}
 
-	public function render($page)
+	public function render($page, $return = false)
 	{
 		extract($page);
 		ob_start();
-		include($this->pageFolder.$page['index_file']);
+		include($this->pageFolder.$page['filepath']);
 		$buffer = ob_get_contents();
 		@ob_end_clean();
 		
+		if($return)
+			return $buffer;
+
 		echo $buffer;
 	}
 
